@@ -57,3 +57,6 @@ Route::post('/catalog/cart',['as'=> 'catalog.shopcart.post', 'uses'=> 'CartContr
 Route::get('/catalog/cart', ['as'=> 'catalog.shopcart.get', 'uses'=> 'CartController@buyPage']);
 // Route::post('/catalog/shopcart',['as'=>'post.barang', 'uses' =>'CartController@shopCart']);
 Route::post('/catalog/cart-delete', 'CartController@delete');
+Route::get('/catalog/wishlist', ['as'=> 'catalog.wishlist.get', 'uses'=> 'CartController@wishlistPage']);
+Route::post('/catalog/wishlist', ['as'=> 'catalog.wishlist.post', 'uses'=> 'CartController@wishlist']);
+Route::post('/catalog/wish-delete', 'CartController@wishlistDelete')->name('wish-delete');

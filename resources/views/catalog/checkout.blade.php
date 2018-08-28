@@ -16,7 +16,7 @@
             </form>
           </div>
           <!-- Wishlist Modal -->
-          <div class="modal fade" id="wishlist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <!-- <div class="modal fade" id="wishlist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
              <div class="modal-content">
                <div class="modal-header">
@@ -34,7 +34,7 @@
                </div>
              </div>
             </div>
-            </div>
+            </div> -->
       </section>
       <section class="first-section">
         <form class="down-space" action="#" method="post">
@@ -136,6 +136,51 @@
               }
             }
           })
+        })
+
+//wishlist
+        $(document).on('click','#wishlist_1', function(){
+          if($("input[name='wishlist']").prop('checked') === true){
+          $.ajax({
+            url: "{{ route('catalog.wishlist.post') }}",
+            dataType: "JSON",
+            type:"POST",
+            data:{
+              fileId:$('#file_id').attr('data-id'),
+              harga_barang:$('#harga_barang').attr('data-harga'),
+              name: $(this).attr('name'),
+              jumlah: $('input[name="Amount"]').val()
+            },
+            error:function(data){
+              alert(data.responseJSON.message+ "line "+ data.responseJSON.line+".\n File" +data.responseJSON.file);
+
+            }
+              }).done(function(data){
+                if(data.url){
+                  location.href = data.url
+                }else {
+                  alert(data.desc)
+                }
+            })
+          }else{
+            if(confirm("Are You Sure ?")){
+              $.ajax({
+                url: "{{ route('wish-delete') }}",
+                dataType:'JSON',
+                type:'POST',
+                data:{
+                  fileId:$(this).attr('data-id')
+                },
+                error:function(data){
+                  alert(data.responseJSON.message+ "line "+ data.responseJSON.line+".\n File" +data.responseJSON.file);
+
+                }
+              }).done(function(data){
+                  alert(data.message)
+                  console.log(data)
+              })
+            }
+          }
         })
 
         function isNumberKey(event){

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTotalHargaToCarts extends Migration
+class AddTotalHargaToWishlist extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class AddTotalHargaToCarts extends Migration
      */
     public function up()
     {
-      
-       Schema::table('carts', function ($table) {
-         $table->integer('total_harga')->after('jumlah_barang');
-       });
+      Schema::table('wishlists', function ($table) {
+        $table->integer('total_harga')->after('jumlah_barang');
+      });
 
     }
 

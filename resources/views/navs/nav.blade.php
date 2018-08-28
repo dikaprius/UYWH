@@ -34,6 +34,7 @@
 
         @else
         <a class="nav-item nav-link" href="{{ route('catalog.shopcart.get') }}">My Shopcart</a>
+        <a class="nav-item nav-link" href="{{ route('catalog.wishlist.get') }}">Wishlist</a>
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 {{ Auth::user()->name }} <span class="caret"></span>
