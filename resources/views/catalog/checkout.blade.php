@@ -9,7 +9,11 @@
           <div class="title-flex">
             <h4 id="harga_barang" data-harga="{{$barang->harga_barang}}" class="red">Rp. {{ number_format($barang->harga_barang,0,",",".") }}</h4>
             <form class="red" action="#" method="post">
-              <input type="checkbox" name="wishlist" id="wishlist_1" data-toggle="modal"  data-target="#wishlist" value="Add To Wishlist">
+              <input type="checkbox" name="wishlist" id="wishlist_1" data-toggle="modal"  data-target="#wishlist" value="Add To Wishlist"
+              {{ (sizeof($exist) > 0) ? "checked data-id=".$exist->id : "" }}>
+<!-- if(sizeof($exist) > 0) {
+  echo 'checked data-id='.$exist->id.'';
+} -->
               <label class="form-check-label" for="wishlist_1">
                 Add To Wishlist
               </label>
@@ -160,10 +164,10 @@
                   location.href = data.url
                 }else {
                   alert(data.desc)
+                  $('#wishlist_1').attr('data-id', data.id)
                 }
             })
           }else{
-            if(confirm("Are You Sure ?")){
               $.ajax({
                 url: "{{ route('wish-delete') }}",
                 dataType:'JSON',
@@ -177,9 +181,8 @@
                 }
               }).done(function(data){
                   alert(data.message)
-                  console.log(data)
+                  console.log($(this).attr('data-id'))
               })
-            }
           }
         })
 

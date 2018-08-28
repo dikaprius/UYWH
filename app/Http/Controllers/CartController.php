@@ -96,7 +96,7 @@ class CartController extends Controller
             $barang->total_harga = $request->harga_barang * $request->jumlah;
             $barang->file_id = $request->fileId;
             if($barang->save()){
-                $return = ['status'=>200, 'desc' => 'We have added into your wishlist, Thankyou'];
+                $return = ['status'=>200, 'desc' => 'We have added into your wishlist, Thankyou', 'id'=> $barang->id];
             }
 
           }
@@ -110,7 +110,7 @@ class CartController extends Controller
       $return = ['status' => 200, 'desc' => 'failed', 'message' => 'You Have not access to delete'];
       if($r->ajax()){
           $id = $r->fileId;
-          $delete = Wishlist::where($id);
+          $delete = Wishlist::find($id);
           if($delete != null){
             if($delete->delete()){
               $totals = Wishlist::where('user_id', Auth::user()->id)->sum('harga_barang');

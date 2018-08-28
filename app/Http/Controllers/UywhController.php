@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\File;
+use App\Wishlist;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class UywhController extends Controller
 {
@@ -27,11 +29,11 @@ class UywhController extends Controller
     public function checkout($id)
     {
       $barang = File::findOrFail($id);
-
+      $exist = Wishlist::where(['user_id' => Auth::user()->id, 'file_id'=> $id])->first();
       if($barang==null){
         return view('Errors.404');
       }else{
-        return view('catalog.checkout', ['barang'=>$barang, 'id'=>$id]);
+        return view('catalog.checkout', ['barang'=>$barang, 'id'=>$id, 'exist'=>$exist]);
       }
 
     }
